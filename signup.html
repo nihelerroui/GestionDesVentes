@@ -28,6 +28,7 @@
 	<link rel="stylesheet" href="css/nouislider.min.css">
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/main.css">
+    <script src="js/script.js"></script>
 </head>
 
 <body>
@@ -117,7 +118,7 @@
 	</section>
 	<!-- End Banner Area -->
 
-	<!--================Login Box Area =================-->
+	<!--================Signup Box Area =================-->
 	<section class="login_box_area section_gap">
 		<div class="container">
 			<div class="row">
@@ -137,25 +138,33 @@
 						<div class="row login_form" method="post" id="contactForm" novalidate="novalidate">
 							<div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name">
+                                <span id="firstNameError" class="error-message"></span>
 							</div>
                             <div class="col-md-12 form-group">
 								<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name">
+                                <span id="lastNameError"></span>
 							</div>
                             <div class="col-md-12 form-group">
 								<input type="email" class="form-control" id="email" name="email" placeholder="email">
+                                <span id="EmailError"></span>
+                                <span id="EmailUniqueError"></span>
 							</div>
 							<div class="col-md-12 form-group">
 								<input type="password" class="form-control" id="password" name="password" placeholder="Password" >
+                                <span id="PasswordError"></span>
+
 							</div>
                             <div class="col-md-12 form-group">
 								<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="confirm password" >
+                                <span id="confirmPasswordError"></span>
 							</div>
                             <div class="col-md-12 form-group">
 								<input type="number" class="form-control" id="mobile" name="mobile" placeholder="mobile" >
+                                <span id="PhoneError"></span>
 							</div>
 							
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn">Sign up</button>
+								<button type="submit" value="submit" class="primary-btn" onclick="signup()">Sign up</button>
 							</div>
 						</div>
 					</div>
