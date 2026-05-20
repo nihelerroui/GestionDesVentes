@@ -115,5 +115,17 @@ function checkEmailExists(email) {
     }
     return false;
 }
-
+function login() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var usersTab = JSON.parse(localStorage.getItem("users")) || [];
+    for (let i = 0; i < usersTab.length; i++) {
+        if (usersTab[i].email === email && usersTab[i].password ===password) {
+            console.log("login succesufuly !");
+            break; 
+        } else {
+            showError("loginError", "Invalid email or password.")
+        }  
+    }
+}
 
