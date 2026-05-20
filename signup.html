@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/main.css">
     <script src="js/script.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://kit.fontawesome.com/f37a44110f.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -150,13 +152,18 @@
                                 <span id="EmailUniqueError"></span>
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="password" name="password" placeholder="Password" >
-                                <span id="PasswordError"></span>
-
+								<div class="password-box">
+									<input type="password" class="form-control" id="password" name="password" placeholder="Password" >
+									<button type="button" class="toggle-btn" onclick="togglePassword('password', this)"><i class="fa-regular fa-eye"></i></button>
+								</div>
+								<span id="PasswordError"></span>
 							</div>
                             <div class="col-md-12 form-group">
-								<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="confirm password" >
-                                <span id="confirmPasswordError"></span>
+								<div class="password-box">
+									<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="confirm password" >
+									<button type="button" class="toggle-btn" onclick="togglePassword('confirmPassword', this)"><i class="fa-regular fa-eye"></i></button>   
+								</div>
+								<span id="confirmPasswordError"></span>
 							</div>
                             <div class="col-md-12 form-group">
 								<input type="number" class="form-control" id="mobile" name="mobile" placeholder="mobile" >

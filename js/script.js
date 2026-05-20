@@ -115,6 +115,16 @@ function checkEmailExists(email) {
     }
     return false;
 }
+function togglePassword( id,btn) {
+    var input = document.getElementById(id);
+    if (input.type === "password") {
+        input.type = "text";
+        btn.innerHTML = "<i class='fa-solid fa-eye-slash'></i>"
+    } else {
+        input.type = "password";
+        btn.innerHTML = "<i class='fa-regular fa-eye'></i>"
+    }
+}
 function login() {
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
