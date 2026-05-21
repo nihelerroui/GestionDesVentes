@@ -115,14 +115,14 @@ function checkEmailExists(email) {
     }
     return false;
 }
-function togglePassword( id,btn) {
+function togglePassword(id, btn) {
     var input = document.getElementById(id);
-    if (input.type === "password") {
+    if(input.type === "password"){
         input.type = "text";
-        btn.innerHTML = "<i class='fa-solid fa-eye-slash'></i>"
+        btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
     } else {
         input.type = "password";
-        btn.innerHTML = "<i class='fa-regular fa-eye'></i>"
+        btn.innerHTML = '<i class="fa-solid fa-eye"></i>';
     }
 }
 function login() {
@@ -130,12 +130,14 @@ function login() {
     var password = document.getElementById("password").value;
     var usersTab = JSON.parse(localStorage.getItem("users")) || [];
     for (let i = 0; i < usersTab.length; i++) {
-        if (usersTab[i].email === email && usersTab[i].password ===password) {
+        if (usersTab[i].email === email && usersTab[i].password === password) {
             console.log("login succesufuly !");
-            break; 
+            break;
         } else {
             showError("loginError", "Invalid email or password.")
-        }  
+        }
     }
 }
+
+
 
