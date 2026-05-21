@@ -195,6 +195,27 @@ function checkNumber(nb) {
 function checkCategory(category) {
     return category !== "";
 }
+function displayProduct(params) {
+    var productsTab = JSON.parse(localStorage.getItem("products")) || [];
+    var content ="";
+    for (let i = 0; i < productsTab.length; i++) {
+        content = content + `<div class="col-lg-4 col-md-6">
+			<div class="single-product">
+				<img class="img-fluid" src="img/product/p1.jpg" alt="">
+					<div class="product-details">
+						<h6>${productsTab[i].name}</h6>
+							<div class="price">
+								<h6>${productsTab[i].price} DT
+                        </h6>
+					</div>
+			</div>
+			</div>
+		</div>`
+
+    }
+    document.getElementById("content").innerHTML= content;
+
+}
 
 
 
