@@ -138,6 +138,63 @@ function login() {
         }
     }
 }
+function addProduct() {
+    //1. Récupération des données
+    var name = document.getElementById("name").value;
+    var price = document.getElementById("price").value;
+    var stock = document.getElementById("stock").value;
+    var category = document.getElementById("category").value;
+    console.log(name, price, stock, category);
+
+    //2. Validation des données
+    // name min 4 caracters
+    var nameValid = checkLength(name, 4);
+    if (!nameValid) {
+        showError("nameError", "Name must have at least 4 caracters.");
+    } else {
+        clearError("nameError");
+    }
+    //price > 0
+    var priceValid = checkNumber(price);
+    if (!priceValid) {
+        showError("priceError", "Price must be greater than 0.");
+    } else {
+        clearError("priceError");
+    }
+    //Stock > 0
+    var stockValid = checkNumber(stock);
+    if (!stockValid) {
+        showError("stockError", "Stock must be greater than 0.")
+    }
+    //Category
+    var categoryValid = checkCategory(category);
+    if (!categoryValid) {
+        showError("categoryError", "Please select a category.");
+    } else {
+        clearError("categoryError");
+    }
+    //3. Création JSON
+    if (nameValid && priceValid && stockValid && categoryValid) {
+        var product = {
+            name: name,
+            price: price,
+            stock: stock,
+            category: category
+        }
+        console.log(product);
+        //4. Sauvegarde BD
+        var productsTab = JSON.parse(localStorage.getItem("products")) || [];
+        productsTab.push(product);
+        localStorage.setItem("products", JSON.stringify(productsTab));
+
+    }
+}
+function checkNumber(nb) {
+    return nb > 0;
+}
+function checkCategory(category) {
+    return category !== "";
+}
 
 
 
