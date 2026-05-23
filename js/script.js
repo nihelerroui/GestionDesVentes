@@ -182,7 +182,7 @@ function addProduct() {
             category: category
         }
         console.log(product);
-        //4. Sauvegarde BD
+        //4. Sauvegarde BD      
         var productsTab = JSON.parse(localStorage.getItem("products")) || [];
         productsTab.push(product);
         localStorage.setItem("products", JSON.stringify(productsTab));
@@ -207,6 +207,9 @@ function displayProduct(params) {
 							<div class="price">
 								<h6>${productsTab[i].price} DT
                         </h6>
+                        <div class="product-action">
+                            <button type="button" class="primary-btn detail-btn" onclick="goToDisplay(${productsTab[i].id})"> Voir détails</button>
+                        </div>
 					</div>
 			</div>
 			</div>

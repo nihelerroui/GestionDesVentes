@@ -17,3 +17,38 @@
 
     font-size: 18px;
 }
+.content {
+    display: flex;
+    flex-wrap: wrap;
+}
+.content .single-product {
+    width: 260px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.category-list {
+    display: flex;
+    justify-content: center;
+}
+.single-product {
+    transition: all 0.3s ease;
+}
+
+.single-product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.detail-btn {
+    width: 50%;
+    height: 50px;
+    border-radius: 6px;
+    padding: 1px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.detail-btn:hover {
+    background-color: #ffba00;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
