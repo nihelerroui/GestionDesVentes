@@ -117,7 +117,7 @@ function checkEmailExists(email) {
 }
 function togglePassword(id, btn) {
     var input = document.getElementById(id);
-    if(input.type === "password"){
+    if (input.type === "password") {
         input.type = "text";
         btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
     } else {
@@ -175,7 +175,11 @@ function addProduct() {
     }
     //3. Création JSON
     if (nameValid && priceValid && stockValid && categoryValid) {
+
+        var productsTab = JSON.parse(localStorage.getItem("products")) || [];
+
         var product = {
+            id: generateId(productsTab),
             name: name,
             price: price,
             stock: stock,
@@ -183,7 +187,6 @@ function addProduct() {
         }
         console.log(product);
         //4. Sauvegarde BD      
-        var productsTab = JSON.parse(localStorage.getItem("products")) || [];
         productsTab.push(product);
         localStorage.setItem("products", JSON.stringify(productsTab));
 
@@ -197,7 +200,7 @@ function checkCategory(category) {
 }
 function displayProduct(params) {
     var productsTab = JSON.parse(localStorage.getItem("products")) || [];
-    var content ="";
+    var content = "";
     for (let i = 0; i < productsTab.length; i++) {
         content = content + `<div class="col-lg-4 col-md-6">
 			<div class="single-product">
@@ -216,8 +219,24 @@ function displayProduct(params) {
 		</div>`
 
     }
-    document.getElementById("content").innerHTML= content;
+    document.getElementById("content").innerHTML = content;
 
+}
+function generateId(Tab) {
+
+    var max;
+    if (Tab.length == 0) {
+        max = 0;
+    } else {
+        var max = Tab[0].id;
+        for (let i = 0; i < Tab.length; i++) {
+            if (Tab[i].id > max) {
+                max = Tab[i].id;
+            }
+        }
+
+    }
+    return (max + 1);
 }
 
 
