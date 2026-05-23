@@ -238,6 +238,10 @@ function generateId(Tab) {
     }
     return (max + 1);
 }
-
+function goToDisplay(id) {
+    var productId = JSON.stringify(localStorage.setItem("displayProductId", id));
+    window.location.href =" detail-product.html";
+    
+}
 
 
