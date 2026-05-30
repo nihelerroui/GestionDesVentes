@@ -240,7 +240,30 @@ function generateId(Tab) {
 }
 function goToDisplay(id) {
     var productId = JSON.stringify(localStorage.setItem("displayProductId", id));
-    window.location.href =" detail-product.html";
+    window.location.href =" detail-product.html"; 
+}
+function displayProductDetails(){
+    var productTab = JSON.parse(localStorage.getItem("products")) || [];
+    var productId = JSON.parse(localStorage.getItem("displayProductId"));
+    var foundedProduct= {};
+    for (let i =0; i<productTab.length; i++){
+        if(productTab[i].id == productId){
+            foundedProduct = productTab[i];
+            break;
+        }
+    }
+        document.getElementById("name").innerHTML = foundedProduct.name;
+        console.log(foundedProduct.name);
+        document.getElementById("price").innerHTML = foundedProduct.price + "DT";
+        document.getElementById("category").innerHTML = foundedProduct.category;
+        document.getElementById("stockProduct").innerHTML = foundedProduct.stock;
+        if(foundedProduct.stock > 0 ){
+            document.getElementById("stock").innerHTML = "IN_Stock";
+            document.getElementById("stock").style.color = "green";
+        }else{
+            document.getElementById("stock").innerHTML = "Out_Stock";
+            document.getElementById("stock").style.color = "red";
+        }
     
 }
 
