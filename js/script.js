@@ -61,9 +61,11 @@ function signup() {
     }
 
     if (isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && isPhone && isConfirmPasswordValid && !isEmailUnique) {
+        var usersTab = JSON.parse(localStorage.getItem("users")) || [];
 
         //3. Création JSON
         var user = {
+            id: generateId(usersTab),
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -71,9 +73,6 @@ function signup() {
             mobile: mobile
         }
         console.log(user);
-
-        //4. Sauvegarde BD
-        var usersTab = JSON.parse(localStorage.getItem("users")) || [];
 
         //ajouter un nouveau utilisateur
         usersTab.push(user);
