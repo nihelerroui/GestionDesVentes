@@ -135,7 +135,7 @@ function login() {
             break;
         }
     }
-    if(foundedUser){
+    if (foundedUser) {
         localStorage.setItem("connectedUserId", JSON.stringify(foundedUser.id));
         location.replace("products.html");
     }
@@ -267,6 +267,42 @@ function displayProductDetails() {
         document.getElementById("stock").style.color = "red";
     }
 
+}
+function addToCart() {
+    //récupération des données depuis localStorage
+    var productId = JSON.parse(localStorage.getItem("displayProductId"));
+    var userId = JSON.parse(localStorage.getItem("connectedUserId"));
+
+    //récupération des données depuis html
+    var qty = Number(document.getElementById("sst").value);
+
+    //Recherche du produit
+    var productTab = JSON.parse(localStorage.getItem("products")) || [];
+    var foundedProduct = {};
+    for (let i = 0; i < productTab.length; i++) {
+        if (productTab[i].id == productId) {
+            foundedProduct = productTab[i];
+            break;
+        }
+    }
+
+    if (qty > 0 && foundedProduct.stock >= qty) {
+
+        //Création JSON
+        var OrdersTab = JSON.parse(localStorage.getItem("orders")) || [];
+        var order = {
+            id: generateId(OrdersTab),
+            userId: userId,
+            productId: productId,
+            qty: qty
+        }
+        //Sauvegarde BD  
+        OrdersTab.push(order);
+        localStorage.setItem("orders", JSON.stringify(OrdersTab));
+    } else {
+        document.getElementById("stockP").innerHTML = "Not enough stock";
+        document.getElementById("stockP").style.color = "red";
+    }
 }
 
 
