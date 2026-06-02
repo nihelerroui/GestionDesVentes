@@ -338,7 +338,7 @@ function displayMyBasket() {
                                     ${Number(findObjectByKeyAndId("products", ordersTab[i].productId).price) * Number(ordersTab[i].qty)}
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger">Delete</button>
+                                    <button type="button" class="btn btn-danger" onclick="deleteOrder(${ordersTab[i].id})">Delete</button>
                                 </td>
                             </tr>`
     }
@@ -368,4 +368,16 @@ function updateStock(productId, qty) {
 
     localStorage.setItem("products", JSON.stringify(productsTab));
 }
-
+function deleteOrder(orderId) {
+    var ordersTab = JSON.parse(localStorage.getItem("orders")) || [];
+    var position ;
+    for (let i=0; i<ordersTab.length; i++) {
+        if (Number(ordersTab[i].id) === Number(orderId)){
+            position = i;
+            break;
+        }
+    }
+    ordersTab.splice(position,1);
+    localStorage.setItem("orders", JSON.stringify(ordersTab));
+    location.reload();
+}
