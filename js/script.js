@@ -292,6 +292,7 @@ function addToCart() {
         //Sauvegarde BD  
         OrdersTab.push(order);
         localStorage.setItem("orders", JSON.stringify(OrdersTab));
+        updateStock(productId, qty);
         console.log("updateStock called:", productId, qty);
     } else {
         document.getElementById("stockP").innerHTML = "Not enough stock";
@@ -355,5 +356,16 @@ function findObjectByKeyAndId(key, id) {
     }
     return findObj;
 }
+function updateStock(productId, qty) {
+    var productsTab = JSON.parse(localStorage.getItem("products")) || [];
 
+    for (let i = 0; i < productsTab.length; i++) {
+        if (Number(productsTab[i].id) === Number(productId)) {
+            productsTab[i].stock = Number(productsTab[i].stock) - Number(qty);
+            break;
+        }
+    }
+
+    localStorage.setItem("products", JSON.stringify(productsTab));
+}
 
