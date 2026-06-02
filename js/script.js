@@ -277,17 +277,10 @@ function addToCart() {
     var qty = Number(document.getElementById("sst").value);
 
     //Recherche du produit
-    var productTab = JSON.parse(localStorage.getItem("products")) || [];
-    var foundedProduct = {};
-    for (let i = 0; i < productTab.length; i++) {
-        if (productTab[i].id == productId) {
-            foundedProduct = productTab[i];
-            break;
-        }
-    }
+    var foundedProduct = findObjectByKeyAndId("products", productId);
 
-    if (qty > 0 && foundedProduct.stock >= qty) {
-
+    if (qty > 0 && Number(foundedProduct.stock) >= qty) {
+        
         //Création JSON
         var OrdersTab = JSON.parse(localStorage.getItem("orders")) || [];
         var order = {
@@ -299,6 +292,7 @@ function addToCart() {
         //Sauvegarde BD  
         OrdersTab.push(order);
         localStorage.setItem("orders", JSON.stringify(OrdersTab));
+        console.log("updateStock called:", productId, qty);
     } else {
         document.getElementById("stockP").innerHTML = "Not enough stock";
         document.getElementById("stockP").style.color = "red";
@@ -306,13 +300,10 @@ function addToCart() {
 }
 function displayMyBasket() {
     var userId = JSON.parse(localStorage.getItem("connectedUserId"));
-    console.log("userId:", userId);
     var ordersTab = JSON.parse(localStorage.getItem("orders")) || [];
-    console.log(localStorage.getItem("orders"));
     var content = "";
 
     for (let i = 0; i < ordersTab.length; i++) {
-        
         content = content + `<tr>
                                 <td>
                                     ${ordersTab[i].id}
@@ -321,10 +312,29 @@ function displayMyBasket() {
                                     ${ordersTab[i].userId}
                                 </td>
                                 <td>
+                                    ${findObjectByKeyAndId("users", ordersTab[i].userId).firstName} 
+                                    ${findObjectByKeyAndId("users", ordersTab[i].userId).lastName}
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("users", ordersTab[i].userId).mobile}
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("users", ordersTab[i].userId).email}
+                                </td>
+                                <td>
                                    ${ordersTab[i].productId}
                                 </td>
                                 <td>
+                                    ${findObjectByKeyAndId("products", ordersTab[i].productId).name}
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("products", ordersTab[i].productId).price}
+                                </td>
+                                <td>
                                     ${ordersTab[i].qty}
+                                </td>
+                                 <td>
+                                    ${Number(findObjectByKeyAndId("products", ordersTab[i].productId).price) * Number(ordersTab[i].qty)}
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-danger">Delete</button>
@@ -332,6 +342,18 @@ function displayMyBasket() {
                             </tr>`
     }
     document.getElementById("orders").innerHTML = content;
+}
+//fonction générique pour trouver un objet dans un tableau selon une clé et une valeur
+function findObjectByKeyAndId(key, id) {
+    var Tab = JSON.parse(localStorage.getItem(key)) || [];
+    var findObj = {};
+    for (let i = 0; i < Tab.length; i++) {
+        if (Tab[i].id === id) {
+            findObj = Tab[i];
+            break;
+        }
+    }
+    return findObj;
 }
 
 
