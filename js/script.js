@@ -304,5 +304,34 @@ function addToCart() {
         document.getElementById("stockP").style.color = "red";
     }
 }
+function displayMyBasket() {
+    var userId = JSON.parse(localStorage.getItem("connectedUserId"));
+    console.log("userId:", userId);
+    var ordersTab = JSON.parse(localStorage.getItem("orders")) || [];
+    console.log(localStorage.getItem("orders"));
+    var content = "";
+
+    for (let i = 0; i < ordersTab.length; i++) {
+        
+        content = content + `<tr>
+                                <td>
+                                    ${ordersTab[i].id}
+                                </td>
+                                <td>
+                                    ${ordersTab[i].userId}
+                                </td>
+                                <td>
+                                   ${ordersTab[i].productId}
+                                </td>
+                                <td>
+                                    ${ordersTab[i].qty}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>`
+    }
+    document.getElementById("orders").innerHTML = content;
+}
 
 
