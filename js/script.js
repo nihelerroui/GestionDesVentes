@@ -400,3 +400,46 @@ function updateStockDeleteOrder(orderId) {
     localStorage.setItem("products", JSON.stringify(productTab));
 }
 
+function displayMyBasketForUserConnected() {
+    var userId = localStorage.getItem("connectedUserId");
+    var ordersTab = JSON.parse(localStorage.getItem("orders")) || [];
+    var content = "";
+    var s = 0;
+
+    for (let i = 0; i < ordersTab.length; i++) {
+        if (ordersTab[i].userId == userId) {
+            
+            s = s + Number(findObjectByKeyAndId("products", ordersTab[i].productId).price) * Number(ordersTab[i].qty);
+
+            content = content + `<tr>
+                                <td>
+                                    ${ordersTab[i].id}
+                                </td>
+                                <td>
+                                   ${ordersTab[i].productId}
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("products", ordersTab[i].productId).name}
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("products", ordersTab[i].productId).price}
+                                </td>
+                                <td>
+                                    ${ordersTab[i].qty}
+                                </td>
+                                 <td>
+                                    ${Number(findObjectByKeyAndId("products", ordersTab[i].productId).price) * Number(ordersTab[i].qty)}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" onclick="deleteOrder(${ordersTab[i].id})">Delete</button>
+                                </td>
+                            </tr>`
+
+        }
+    }
+    document.getElementById("orders").innerHTML = content + `<tr>
+                                                                <td colspan="6" style="text-align:right;font-weight:bold;">Total</td>
+                                                                <td >${s} DT</td>
+                                                                <td></td>
+                                                            </tr>`;
+}
