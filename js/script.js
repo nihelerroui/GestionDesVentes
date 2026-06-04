@@ -280,7 +280,7 @@ function addToCart() {
     var foundedProduct = findObjectByKeyAndId("products", productId);
 
     if (qty > 0 && Number(foundedProduct.stock) >= qty) {
-        
+
         //Création JSON
         var OrdersTab = JSON.parse(localStorage.getItem("orders")) || [];
         var order = {
@@ -370,14 +370,33 @@ function updateStock(productId, qty) {
 }
 function deleteOrder(orderId) {
     var ordersTab = JSON.parse(localStorage.getItem("orders")) || [];
-    var position ;
-    for (let i=0; i<ordersTab.length; i++) {
-        if (Number(ordersTab[i].id) === Number(orderId)){
+    var position;
+    for (let i = 0; i < ordersTab.length; i++) {
+        if (Number(ordersTab[i].id) === Number(orderId)) {
             position = i;
             break;
         }
     }
-    ordersTab.splice(position,1);
+    updateStockDeleteOrder(orderId);
+
+    ordersTab.splice(position, 1);
+
     localStorage.setItem("orders", JSON.stringify(ordersTab));
+
     location.reload();
+
 }
+function updateStockDeleteOrder(orderId) {
+    //Récupération de tableau from localStorage
+    var productTab = JSON.parse(localStorage.getItem("products")) || [];
+    //Récupération objet order avec l'id du produit
+    var order = findObjectByKeyAndId("orders", orderId);
+    for (let i = 0; i < productTab.length; i++) {
+        if (productTab[i].id == order.productId) {
+            productTab[i].stock = Number(productTab[i].stock) + Number(order.qty);
+        }
+
+    }
+    localStorage.setItem("products", JSON.stringify(productTab));
+}
+
