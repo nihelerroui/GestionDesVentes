@@ -180,7 +180,74 @@ function signupStore() {
         location.replace("login.html");
     }
 }
+function signupAdmin() {
+    //1. Récupération des données
+    var firstName = document.getElementById("firstName").value;
+    var lastName = document.getElementById("lastName").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
 
+    //2. Validation des données
+
+    //First Name must have minimum 3 caractères
+    var isFirstNameValid = checkLength(firstName, 3);
+    if (!isFirstNameValid) {
+        showError("firstNameError", "First name must have at least 3 caracters. ");
+
+    } else {
+        clearError("firstNameError");
+    }
+    //Last Name must have minimum 4 caractères
+    var isLastNameValid = checkLength(lastName, 4);
+    if (!isLastNameValid) {
+        showError("lastNameError", "Last name must have at least 4 caracters.");
+    } else {
+        clearError("lastNameError");
+    }
+    //Format email
+    var isEmailValid = checkEmail(email)
+    if (!isEmailValid) {
+        showError("EmailError", "Invalid email format.");
+    } else {
+        clearError("EmailError");
+    }
+    //password must have min 5 caracters
+    var isPasswordValid = checkLength(password, 5);
+    if (!isPasswordValid) {
+        showError("PasswordError", "Password must have at least 5 caracters.");
+    } else {
+        clearError("PasswordError");
+    }
+    // Vérifier si l'email existe déja
+    var isEmailUnique = checkEmailExists(email);
+    if (isEmailUnique) {
+        showError("EmailUniqueError", "Email must be unique");
+    } else {
+        clearError("EmailUniqueError");
+    }
+
+    if (isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && !isEmailUnique) {
+        var usersTab = JSON.parse(localStorage.getItem("users")) || [];
+
+        //3. Création JSON
+        var user = {
+            id: generateId(usersTab),
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            role: "admin"
+        }
+        console.log(user);
+
+        //ajouter un nouveau utilisateur
+        usersTab.push(user);
+
+        //4.Stockage dans local
+        localStorage.setItem("users", JSON.stringify(usersTab));
+        location.replace("login.html");
+    }
+}
 // fonction longueur chaine de caractères
 function checkLength(ch, x) {
     return ch.length >= x;
