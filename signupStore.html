@@ -28,7 +28,9 @@
 	<link rel="stylesheet" href="css/nouislider.min.css">
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/main.css">
-	<script src="js/script.js"></script>
+    <script src="js/script.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://kit.fontawesome.com/f37a44110f.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -107,10 +109,10 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Login/Register</h1>
+					<h1>Register/S'inscrire</h1>
 					<nav class="d-flex align-items-center">
 						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="category.html">Login/Register</a>
+						<a href="category.html">Register/S'inscrire</a>
 					</nav>
 				</div>
 			</div>
@@ -118,7 +120,7 @@
 	</section>
 	<!-- End Banner Area -->
 
-	<!--================Login Box Area =================-->
+	<!--================Signup Box Area =================-->
 	<section class="login_box_area section_gap">
 		<div class="container">
 			<div class="row">
@@ -134,19 +136,51 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
-						<h3>Log in to enter</h3>
-						<div class="row login_form" >
+						<h3>Signup Store</h3>
+						<div class="row login_form" method="post" id="contactForm" novalidate="novalidate">
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="email" name="email" placeholder="email">
+								<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name">
+                                <span id="firstNameError" class="error-message"></span>
+							</div>
+                            <div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name">
+                                <span id="lastNameError"></span>
+							</div>
+                            <div class="col-md-12 form-group">
+								<input type="email" class="form-control" id="email" name="email" placeholder="email">
+                                <span id="EmailError"></span>
+                                <span id="EmailUniqueError"></span>
 							</div>
 							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="password" name="password" placeholder="Password">
+								<div class="password-box">
+									<input type="password" class="form-control" id="password" name="password" placeholder="Password" >
+									<button type="button" class="toggle-btn" onclick="togglePassword('password', this)"><i class="fa-regular fa-eye"></i></button>
+								</div>
+								<span id="PasswordError"></span>
 							</div>
-							<span id="loginError"></span>
+                            <div class="col-md-12 form-group">
+								<div class="password-box">
+									<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="confirm password" >
+									<button type="button" class="toggle-btn" onclick="togglePassword('confirmPassword', this)"><i class="fa-regular fa-eye"></i></button>   
+								</div>
+								<span id="confirmPasswordError"></span>
+							</div>
+                            <div class="col-md-12 form-group">
+								<input type="number" class="form-control" id="mobile" name="mobile" placeholder="mobile" >
+                                <span id="PhoneError"></span> 
+							</div>
+                            <div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="StoreName" name="StoreName" placeholder="Store Name" >
+                                <span id="StoreNameError"></span>
+							</div>
+                            <div class="col-md-12 form-group">
+								<textarea class="form-control" id="StoreAddress" name="StoreAddress" placeholder="Store Address" ></textarea>
+                                <span id="StoreAddressError"></span>
+							</div>
+
+							
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn" onclick="login()">Log In</button>
-								<p id="loginError"></p>
-								<a href="#">Forgot Password?</a>
+								<button type="submit" value="submit" class="primary-btn" onclick="signupStore()">Sign up</button>
 							</div>
 						</div>
 					</div>
