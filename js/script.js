@@ -291,6 +291,7 @@ function togglePassword(id, btn) {
         btn.innerHTML = '<i class="fa-solid fa-eye"></i>';
     }
 }
+
 function login() {
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
@@ -303,10 +304,24 @@ function login() {
         }
     }
     if (foundedUser) {
-        localStorage.setItem("connectedUserId", JSON.stringify(foundedUser.id));
-        location.replace("products.html");
+        if (foundedUser.role === "client") {
+            localStorage.setItem("connectedUserId", JSON.stringify(foundedUser.id));
+            location.replace("products.html");
+        } else if (foundedUser.role === "store") {
+            if (foundedUser.status === "notValidated") {
+                showError("loginError", "Your account is not validated yet. Please wait for the admin approval.");
+            } else {
+                localStorage.setItem("connectedUserId", JSON.stringify(foundedUser.id));
+                location.replace("store.html");
+            }
+        } else {
+            localStorage.setItem("connectedUserId", JSON.stringify(foundedUser.id));
+            location.replace("admin.html");
+        }
+    } else {
+            showError("loginError", "Invalid email or password.");
+        }
     }
-}
 function addProduct() {
     //1. Récupération des données
     var name = document.getElementById("name").value;
