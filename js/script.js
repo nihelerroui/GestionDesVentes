@@ -637,4 +637,17 @@ function displayAllProducts() {
     }
     document.getElementById("allProducts").innerHTML = content;
 }
+function deleteProduct(productId) {
+    var productsTab = JSON.parse(localStorage.getItem("products")) || [];
+    var position;
+    for (let i = 0; i < productsTab.length; i++) {
+        if (Number(productsTab[i].id) == productId) {
+            position = i;
+            break;
+        }
+    }
+    productsTab.splice(position, 1);
+    localStorage.setItem("products", JSON.stringify(productsTab));
+    displayAllProducts();
+}
 
