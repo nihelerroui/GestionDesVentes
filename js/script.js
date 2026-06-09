@@ -738,3 +738,14 @@ function deleteUser(userId) {
     localStorage.setItem("users", JSON.stringify(usersTab));
     displayAllUsers();
 }
+function validateStore(userId) {
+    var usersTab = JSON.parse(localStorage.getItem("users")) || [];
+    for(let i=0; i<usersTab.length; i++) {
+        if(Number(usersTab[i].id == userId)) {
+            usersTab[i].status = "validated";
+            break;
+        }
+    }
+    localStorage.setItem("users" , JSON.stringify(usersTab));
+    displayAllUsers();
+}
