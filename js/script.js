@@ -361,13 +361,15 @@ function addProduct() {
     if (nameValid && priceValid && stockValid && categoryValid) {
 
         var productsTab = JSON.parse(localStorage.getItem("products")) || [];
+        var connectedUserId = localStorage.getItem("connectedUserId");
 
         var product = {
             id: generateId(productsTab),
             name: name,
             price: price,
             stock: stock,
-            category: category
+            category: category,
+            storeId: connectedUserId
         }
         console.log(product);
         //4. Sauvegarde BD      
