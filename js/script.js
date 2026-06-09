@@ -749,3 +749,36 @@ function validateStore(userId) {
     localStorage.setItem("users" , JSON.stringify(usersTab));
     displayAllUsers();
 }
+function displayAllProductsStore(){
+    var connectedUser = localStorage.getItem("connectedUserId");
+    var productsTab = JSON.parse(localStorage.getItem("products")) || [] ;
+    var content = "";
+    for (let i = 0; i < productsTab.length; i++) {
+        if (productsTab[i].storeId == connectedUser) {
+            content = content + `<tr>
+                                <td>
+                                    ${productsTab[i].id}
+                                </td>
+                                <td>
+                                   ${productsTab[i].name}
+                                </td>
+                                <td>
+                                    ${productsTab[i].price}
+                                </td>
+                                <td>
+                                    ${productsTab[i].stock}
+                                </td>
+                                <td>
+                                    ${productsTab[i].category}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" onclick="deleteProduct(${productsTab[i].id})">Delete</button>
+                                    <button type="button" class="btn btn-primary" >Edit</button>
+
+                                </td>
+                            </tr>` 
+        }
+        
+    }
+    document.getElementById("productsListStore").innerHTML = content;
+}
