@@ -725,3 +725,16 @@ function displayAllUsers() {
     }
     document.getElementById("usersList").innerHTML = content;
 }
+function deleteUser(userId) {
+    var usersTab = JSON.parse(localStorage.getItem("users")) || [];
+    var position;
+    for (let i=0; i < usersTab.length; i++) {
+        if (Number(usersTab[i].id) == userId) {
+            position = i;
+            break;
+        }
+    }
+    usersTab.splice(position, 1);
+    localStorage.setItem("users", JSON.stringify(usersTab));
+    displayAllUsers();
+}
