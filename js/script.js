@@ -665,4 +665,63 @@ function deleteProduct(productId) {
     localStorage.setItem("products", JSON.stringify(productsTab));
     displayAllProducts();
 }
+function displayAllUsers() {
+    var usersTab = JSON.parse(localStorage.getItem("users")) || [];
+    var content = "";
+    for (let i = 0; i < usersTab.length; i++) {
+        if (usersTab[i].role !== "admin") {
+            if (usersTab[i].role == "store" && usersTab[i].status == "notValidated") {
+                content = content + `<tr>
+                                        <td>
+                                            ${usersTab[i].id}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].firstName}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].lastName}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].storeName}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].role}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].status}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success" onclick="validateStore(${usersTab[i].id})">Validate</button>
+                                            <button type="button" class="btn btn-danger" onclick="deleteUser(${usersTab[i].id})">Delete</button>
+                                        </td>
+                                    </tr>`;
+            } else {
+                content = content + `<tr>
+                                        <td>
+                                            ${usersTab[i].id}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].firstName}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].lastName}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].storeName}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].role}
+                                        </td>
+                                        <td>
+                                            ${usersTab[i].status}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" onclick="deleteUser(${usersTab[i].id})">Delete</button>
+                                        </td>
+                                    </tr>`
+            }
+        }
 
+    }
+    document.getElementById("usersList").innerHTML = content;
+}
