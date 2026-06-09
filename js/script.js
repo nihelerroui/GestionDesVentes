@@ -319,9 +319,9 @@ function login() {
             location.replace("admin.html");
         }
     } else {
-            showError("loginError", "Invalid email or password.");
-        }
+        showError("loginError", "Invalid email or password.");
     }
+}
 function addProduct() {
     //1. Récupération des données
     var name = document.getElementById("name").value;
