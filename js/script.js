@@ -900,3 +900,26 @@ function logout() {
     localStorage.removeItem("connectedUserId");
     location.replace("login.html");
 }
+function editProduct(productId){
+    var productObj = findObjectByKeyAndId("products", productId);
+    var content = "";
+    content = ` <div class="login_form_inner">
+                        <h3>Add Product</h3>
+                        <div class="row login_form" method="post" id="contactForm" novalidate="novalidate" >
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="${productObj.name}">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="price" name="price" placeholder="Price" value="${productObj.price}">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="stock" name="stock" placeholder="Stock" value="${productObj.stock}">
+                            </div>
+                            
+                            <div class="col-md-12 form-group">
+                                <button type="submit" value="submit" class="primary-btn" onclick="">Validate</button>
+                            </div>
+                        </div>
+                    </div>`
+                    document.getElementById("editProduct").innerHTML = content;
+}
