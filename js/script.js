@@ -784,6 +784,64 @@ function displayAllProductsStore() {
     }
     document.getElementById("productsListStore").innerHTML = content;
 }
+function displayAllOrdersStore() {
+    var connectedUser = localStorage.getItem("connectedUserId");
+    var ordersTab = JSON.parse(localStorage.getItem("orders")) || [];
+    var productsTab = JSON.parse(localStorage.getItem("products")) || [];
+    var content = "";
+    for (let i = 0; i < ordersTab.length; i++) {
+        //chercher le produit correspondant à la commande
+        for (let j = 0; j < productsTab.length; j++) {
+            if (ordersTab[i].productId == productsTab[j].id) {
+                if (Number(productsTab[j].storeId) === Number(connectedUser)) {
+                    content = content + `<tr>
+                                <td>
+                                    ${ordersTab[i].id}
+                                </td>
+                                <td>
+                                    ${ordersTab[i].userId}
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("users", ordersTab[i].userId).firstName} 
+                                    ${findObjectByKeyAndId("users", ordersTab[i].userId).lastName}
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("users", ordersTab[i].userId).mobile}
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("users", ordersTab[i].userId).email}
+                                </td>
+                                <td>
+                                   ${ordersTab[i].productId}
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("products", ordersTab[i].productId).name}
+                                   
+                                </td>
+                                <td>
+                                    ${findObjectByKeyAndId("products", ordersTab[i].productId).price}
+                                </td>
+                                <td>
+                                    ${ordersTab[i].qty}
+                                </td>
+                                 <td>
+                                    ${Number(findObjectByKeyAndId("products", ordersTab[i].productId).price) * Number(ordersTab[i].qty)}
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" onclick="deleteOrder(${ordersTab[i].id})">Delete</button>
+                                </td>
+                            </tr>`
+
+
+                }
+            }
+
+        }
+
+
+    }
+    document.getElementById("ListOrdersStore").innerHTML = content;
+}
 function generateHeader() {
     var connectedUser = localStorage.getItem("connectedUserId");
     var foundedUser = findObjectByKeyAndId("users", Number(connectedUser));
