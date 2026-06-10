@@ -730,7 +730,7 @@ function displayAllUsers() {
 function deleteUser(userId) {
     var usersTab = JSON.parse(localStorage.getItem("users")) || [];
     var position;
-    for (let i=0; i < usersTab.length; i++) {
+    for (let i = 0; i < usersTab.length; i++) {
         if (Number(usersTab[i].id) == userId) {
             position = i;
             break;
@@ -742,18 +742,18 @@ function deleteUser(userId) {
 }
 function validateStore(userId) {
     var usersTab = JSON.parse(localStorage.getItem("users")) || [];
-    for(let i=0; i<usersTab.length; i++) {
-        if(Number(usersTab[i].id == userId)) {
+    for (let i = 0; i < usersTab.length; i++) {
+        if (Number(usersTab[i].id == userId)) {
             usersTab[i].status = "validated";
             break;
         }
     }
-    localStorage.setItem("users" , JSON.stringify(usersTab));
+    localStorage.setItem("users", JSON.stringify(usersTab));
     displayAllUsers();
 }
-function displayAllProductsStore(){
+function displayAllProductsStore() {
     var connectedUser = localStorage.getItem("connectedUserId");
-    var productsTab = JSON.parse(localStorage.getItem("products")) || [] ;
+    var productsTab = JSON.parse(localStorage.getItem("products")) || [];
     var content = "";
     for (let i = 0; i < productsTab.length; i++) {
         if (productsTab[i].storeId == connectedUser) {
@@ -775,12 +775,70 @@ function displayAllProductsStore(){
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-danger" onclick="deleteProduct(${productsTab[i].id})">Delete</button>
-                                    <button type="button" class="btn btn-primary" >Edit</button>
+                                    <button type="button" class="btn btn-primary" onclick="editProduct(${productsTab[i].id})" >Edit</button>
 
                                 </td>
-                            </tr>` 
+                            </tr>`
         }
-        
+
     }
     document.getElementById("productsListStore").innerHTML = content;
+}
+function generateHeader() {
+    var connectedUser = localStorage.getItem("connectedUserId");
+    var foundedUser = findObjectByKeyAndId("users", Number(connectedUser));
+    var content = "";
+    if (connectedUser) {
+        if (foundedUser.role == "client") {
+            content = `<ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                           <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                           <li class="nav-item"><a class="nav-link" href="myBasket.html">Mybasket</a></li>
+                           <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
+                           <li class="nav-item"><a class="nav-link" href="profil.html">Hello ${foundedUser.firstName} ${foundedUser.lastName}</a></li>
+                           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                           <li class="nav-item"><button class="btn-danger" type="button" onclick="logout()">Logout</button></li>
+                        </ul>`
+
+        } else if (foundedUser.role == "store") {
+            content = `<ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                           <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                           <li class="nav-item"><a class="nav-link" href="add-Product.html">Add product</a></li>
+                           <li class="nav-item"><a class="nav-link" href="store.html">Dashbord</a></li>
+                           <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
+                           <li class="nav-item"><a class="nav-link" href="profil.html">Hello ${foundedUser.firstName} ${foundedUser.lastName}</a></li>
+                           <li class="nav-item"><button class="btn-danger" type="button" onclick="logout()">Logout</button></li> 
+                        </ul>`
+
+        } else {
+            content = `<ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                           <li class="nav-item"><a class="nav-link" href="admin.html">Dashbord</a></li>
+                           <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
+                           <li class="nav-item"><a class="nav-link" href="profil.html">Hello ${foundedUser.firstName} ${foundedUser.lastName}</a></li>
+                           <li class="nav-item"><button class="btn-danger" type="button" onclick="logout()">Logout</button></li>
+                            
+                        </ul>`
+        }
+
+    } else {
+        // USER NON CONNECTÉ
+        content = `
+            <ul class="nav navbar-nav menu_nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                <li class="nav-item"><span>Are you a </span><a class="nav-link" href="signup.html"> Client </a><span> or a </span><a class="nav-link" href="signupStore.html">Store</li>
+                <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+            </ul>
+        `;
+    }
+    document.getElementById("dynamiqueHeader").innerHTML = content;
+
+}
+function logout() {
+    localStorage.removeItem("connectedUserId");
+    location.replace("login.html");
 }
