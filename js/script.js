@@ -1056,3 +1056,31 @@ function editprofil() {
 
     document.getElementById("editprofile").innerHTML = content;
 }
+function validateEditProfil(userId) {
+
+    var users = JSON.parse(localStorage.getItem("users")) || [];
+
+    for (let i = 0; i < users.length; i++) {
+
+        if (users[i].id == userId) {
+
+            // champs communs
+            users[i].firstName = document.getElementById("firstName").value;
+            users[i].lastName = document.getElementById("lastName").value;
+            users[i].mobile = document.getElementById("mobile").value;
+
+            // champs store seulement si existants
+            if (users[i].role == "store") {
+                users[i].storeName = document.getElementById("storeName").value;
+                users[i].storeAdress = document.getElementById("storeAdress").value;
+            }
+
+            break;
+        }
+    }
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // refresh UI
+    displayProfil();
+}
