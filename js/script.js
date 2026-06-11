@@ -948,3 +948,35 @@ function validateEditProduct(productId) {
     document.getElementById("editProduct").innerHTML = "";
 
 }
+function displayProfil() {
+    var connectedUser = Number(localStorage.getItem("connectedUserId"));
+    var foundedUser = findObjectByKeyAndId("users", connectedUser);
+
+    var content = "";
+
+    if (foundedUser.role == "client") {
+        content = `<div class="col-lg-12">
+                    <img class="author_img rounded-circle" src="img/blog/author.png" alt="">
+                    <h4>${foundedUser.firstName} ${foundedUser.lastName}</h4>
+                    <h5>Email : ${foundedUser.email} </h5>
+                    <h5>Mobile : ${foundedUser.mobile} </h5>
+                    <div class="col-md-12 form-group">
+                       <button type="submit" value="submit" class="primary-btn" onclick="editprofil()"  >Edit</button>
+                     </div>
+                </div>`
+
+    } else if (foundedUser.role == "store") {
+        content = `<div class="col-lg-12">
+                    <img class="author_img rounded-circle" src="img/blog/author.png" alt="">
+                    <h4>${foundedUser.firstName} ${foundedUser.lastName}</h4>
+                    <h5>Email : ${foundedUser.email} </h5>
+                    <h5>Mobile : ${foundedUser.mobile} </h5>
+                    <h5>Store name : ${foundedUser.storeName} </h5>
+                    <h5>Store adress : ${foundedUser.storeAdress} </h5>
+                    <div class="col-md-12 form-group">
+                       <button type="submit" value="submit" class="primary-btn" onclick="editprofil()" >Edit</button>
+                     </div>
+                </div>`
+    }
+    document.getElementById("profile").innerHTML = content;
+}
