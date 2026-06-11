@@ -1084,3 +1084,40 @@ function validateEditProfil(userId) {
     // refresh UI
     displayProfil();
 }
+function searchProduct() {
+
+    var nameproduct = document.getElementById("nameSearch").value.toLowerCase();
+
+    var productsTab = JSON.parse(localStorage.getItem("products")) || [];
+
+    var content = "";
+
+    for (let i = 0; i < productsTab.length; i++) {
+
+        if (productsTab[i].name.toLowerCase().includes(nameproduct)) {
+
+            content += `
+            <div class="col-lg-4 col-md-6">
+                <div class="single-product">
+                    <img class="img-fluid" src="img/product/p1.jpg" alt="">
+                    <div class="product-details">
+                        <h6>${productsTab[i].name}</h6>
+                        <div class="price">
+                            <h6>${productsTab[i].price} DT</h6>
+                        </div>
+
+                        <div class="product-action">
+                            <button type="button" class="primary-btn detail-btn"
+                                onclick="goToDisplay(${productsTab[i].id})">
+                                Voir détails
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+    }
+
+    document.getElementById("searchproduct").innerHTML = content || `<p>Aucun produit trouvé</p>`;
+}
