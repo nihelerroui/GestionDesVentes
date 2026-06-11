@@ -980,3 +980,79 @@ function displayProfil() {
     }
     document.getElementById("profile").innerHTML = content;
 }
+function editprofil() {
+    var connectedUser = Number(localStorage.getItem("connectedUserId"));
+    var foundUser = findObjectByKeyAndId("users", connectedUser);
+
+    var content = "";
+
+    if (foundUser.role == "client") {
+
+        content = `
+        <div class="col-lg-12">
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="firstName"
+                    value="${foundUser.firstName}" placeholder="First name">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="lastName"
+                    value="${foundUser.lastName}" placeholder="Last name">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="mobile"
+                    value="${foundUser.mobile}" placeholder="Mobile">
+            </div>
+
+            <button class="primary-btn"
+                onclick="validateEditProfil(${foundUser.id})">
+                Save changes
+            </button>
+
+        </div>
+        `;
+    }
+
+    else if (foundUser.role == "store") {
+
+        content = `
+        <div class="col-lg-12">
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="firstName"
+                    value="${foundUser.firstName}" placeholder="First name">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="lastName"
+                    value="${foundUser.lastName}" placeholder="Last name">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="mobile"
+                    value="${foundUser.mobile}" placeholder="Mobile">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="storeName"
+                    value="${foundUser.storeName}" placeholder="Store name">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="storeAdress"
+                    value="${foundUser.storeAdress}" placeholder="Store address">
+            </div>
+
+            <button class="primary-btn"
+                onclick="validateEditProfil(${foundUser.id})">
+                Save changes
+            </button>
+
+        </div>
+        `;
+    }
+
+    document.getElementById("editprofile").innerHTML = content;
+}
