@@ -900,26 +900,51 @@ function logout() {
     localStorage.removeItem("connectedUserId");
     location.replace("login.html");
 }
-function editProduct(productId){
+function editProduct(productId) {
     var productObj = findObjectByKeyAndId("products", productId);
     var content = "";
     content = ` <div class="login_form_inner">
                         <h3>Add Product</h3>
                         <div class="row login_form" method="post" id="contactForm" novalidate="novalidate" >
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="${productObj.name}">
+                                <input type="text" class="form-control" id="newname" name="name" placeholder="Name" value="${productObj.name}">
                             </div>
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="price" name="price" placeholder="Price" value="${productObj.price}">
+                                <input type="text" class="form-control" id="newprice" name="price" placeholder="Price" value="${productObj.price}">
                             </div>
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="stock" name="stock" placeholder="Stock" value="${productObj.stock}">
+                                <input type="text" class="form-control" id="newstock" name="stock" placeholder="Stock" value="${productObj.stock}">
                             </div>
                             
                             <div class="col-md-12 form-group">
-                                <button type="submit" value="submit" class="primary-btn" onclick="">Validate</button>
+                                <button type="submit" value="submit" class="primary-btn" onclick="validateEditProduct(${productObj.id})">Validate</button>
                             </div>
                         </div>
                     </div>`
-                    document.getElementById("editProduct").innerHTML = content;
+    document.getElementById("editProduct").innerHTML = content;
+}
+function validateEditProduct(productId) {
+
+    // récupérer les nouvelles valeurs
+    var newname = document.getElementById("newname").value;
+    var newprice = document.getElementById("newprice").value;
+    var newstock = document.getElementById("newstock").value;
+
+    var productTab = JSON.parse(localStorage.getItem("products")) || [];
+
+    for (let i = 0; i < productTab.length; i++) {
+        if (productId == productTab[i].id) {
+            productTab[i].name = newname;
+            productTab[i].price = newprice;
+            productTab[i].stock = newstock;
+
+            break;
+        }
+    }
+    localStorage.setItem("products", JSON.stringify(productTab));
+
+    displayAllProductsStore();
+
+    document.getElementById("editProduct").innerHTML = "";
+
 }
